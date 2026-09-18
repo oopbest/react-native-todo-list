@@ -1,6 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const TASKS_STORAGE_KEY = "task-tracker:tasks";
+let saveQueue = Promise.resolve();
 
 export async function loadTasksFromStorage() {
   const savedTasks = await AsyncStorage.getItem(TASKS_STORAGE_KEY);
@@ -17,7 +18,13 @@ export async function loadTasksFromStorage() {
 
 export async function saveTasksToStorage(tasks) {
   const serializedTasks = JSON.stringify(tasks);
-  await AsyncStorage.setItem(TASKS_STORAGE_KEY, serializedTasks);
+  const currentSave = saveQueue.then(() =>
+    AsyncStorage.setItem(TASKS_STORAGE_KEY, serializedTasks),
+  );
+
+  saveQueue = currentSave.catch(() => {});
+
+  await currentSave;
 }
 
 // Helper functions
