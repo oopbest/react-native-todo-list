@@ -15,7 +15,7 @@ import TaskItem from "../components/TaskItem.js";
 import TaskProgress from "../components/TaskProgress.js";
 import TaskFilters from "../components/TaskFilters.js";
 import AddTaskForm from "../components/AddTaskForm.js";
-import useTasks from "../hooks/useTasks.js";
+import { useTasksContext } from "../context/TasksContext.js";
 import { colors, spacing } from "../theme.js";
 
 const FILTERS_STATUS = {
@@ -49,7 +49,8 @@ export default function TaskListScreen() {
     handleDeleteTask,
     handleRenameTask,
     addTask,
-  } = useTasks();
+  } = useTasksContext();
+
   const [newTaskTitle, setNewTaskTitle] = useState("");
   const [filter, setFilter] = useState(FILTERS_STATUS.all);
 
