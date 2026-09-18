@@ -1,5 +1,5 @@
 import { TextInput, Pressable, Text, StyleSheet } from "react-native";
-import { colors } from "../theme.js";
+import { colors, spacing } from "../theme.js";
 
 export default function AddTaskForm({
   taskTitle,
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     borderColor: colors.border,
     borderRadius: 12,
     width: "100%",
-    padding: 16,
+    padding: spacing.s16,
     fontSize: 16,
     color: colors.text,
   },
@@ -55,9 +55,9 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 12,
-    marginBottom: 24,
-    padding: 14,
+    marginTop: spacing.s12,
+    marginBottom: spacing.s24,
+    padding: spacing.s14,
   },
   addButtonText: {
     color: colors.surface,

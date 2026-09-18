@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, Pressable } from "react-native";
-import { colors } from "../theme.js";
+import { colors, spacing } from "../theme.js";
 
 export default function TaskFilters({ selectedFilter, onFilterChange }) {
   return (
@@ -79,13 +79,13 @@ const styles = StyleSheet.create({
     width: "100%",
     backgroundColor: colors.border,
     borderRadius: 12,
-    padding: 4,
-    marginBottom: 20,
+    padding: spacing.s4,
+    marginBottom: spacing.s20,
   },
   filterButton: {
     flex: 1,
     minHeight: 44,
-    paddingVertical: 10,
+    paddingVertical: spacing.s10,
     borderRadius: 8,
     alignItems: "center",
     justifyContent: "center",

@@ -15,7 +15,7 @@ import TaskProgress from "./components/TaskProgress.js";
 import TaskFilters from "./components/TaskFilters.js";
 import AddTaskForm from "./components/AddTaskForm.js";
 import useTasks from "./hooks/useTasks.js";
-import { colors } from "./theme.js";
+import { colors, spacing } from "./theme.js";
 
 const FILTERS_STATUS = {
   all: "all",
@@ -104,7 +104,7 @@ export default function App() {
                       alignSelf: "flex-start",
                       minHeight: 44,
                       justifyContent: "center",
-                      paddingHorizontal: 12,
+                      paddingHorizontal: spacing.s12,
                       borderRadius: 8,
                       backgroundColor: pressed ? colors.primaryLightPressed : colors.primaryLight,
                     })}
@@ -189,17 +189,17 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.background,
     alignItems: "center",
-    paddingHorizontal: 24,
+    paddingHorizontal: spacing.s24,
   },
   header: {
     width: "100%",
-    paddingTop: 16,
-    marginBottom: 25,
+    paddingTop: spacing.s16,
+    marginBottom: spacing.s25,
   },
   topic: {
     fontSize: 32,
     fontWeight: "bold",
-    marginBottom: 4,
+    marginBottom: spacing.s4,
     color: colors.text,
   },
   count: {
@@ -211,8 +211,8 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   emptyState: {
-    paddingVertical: 40,
-    paddingHorizontal: 16,
+    paddingVertical: spacing.s40,
+    paddingHorizontal: spacing.s16,
   },
   emptyText: {
     fontSize: 16,
@@ -224,11 +224,11 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
     justifyContent: "center",
-    gap: 12,
+    gap: spacing.s12,
   },
   progressContainer: {
-    marginTop: 8,
-    gap: 10,
+    marginTop: spacing.s8,
+    gap: spacing.s10,
   },
   addButton: {
     width: "100%",
@@ -237,9 +237,9 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 12,
-    marginBottom: 24,
-    padding: 14,
+    marginTop: spacing.s12,
+    marginBottom: spacing.s24,
+    padding: spacing.s14,
   },
   addButtonText: {
     color: colors.surface,

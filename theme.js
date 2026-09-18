@@ -14,3 +14,16 @@ export const colors = {
   primaryLight: "#EEF2FF",
   primaryLightPressed: "#E0E7FF",
 };
+
+export const spacing = {
+  s4: 4,
+  s8: 8,
+  s10: 10,
+  s12: 12,
+  s14: 14,
+  s16: 16,
+  s20: 20,
+  s24: 24,
+  s25: 25,
+  s40: 40,
+};

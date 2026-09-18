@@ -8,7 +8,7 @@ import {
   TextInput,
 } from "react-native";
 import { Ionicons } from "@react-native-vector-icons/ionicons";
-import { colors } from "../theme.js";
+import { colors, spacing } from "../theme.js";
 
 export default function TaskItem({ task, onToggle, onDelete, onRename }) {
   const [isEditting, setIsEditting] = useState(false);
@@ -47,7 +47,7 @@ export default function TaskItem({ task, onToggle, onDelete, onRename }) {
     <View style={styles.taskItem}>
       {isEditting ? (
         <View style={styles.editForm}>
-          <Text style={{ fontSize: 14, fontWeight: "600", marginBottom: 8 }}>
+          <Text style={{ fontSize: 14, fontWeight: "600", marginBottom: spacing.s8 }}>
             Edit task
           </Text>
           <TextInput
@@ -57,7 +57,7 @@ export default function TaskItem({ task, onToggle, onDelete, onRename }) {
               fontSize: 16,
               width: "100%",
               minHeight: 48,
-              padding: 12,
+              padding: spacing.s12,
               borderRadius: 10,
               borderWidth: 1,
               borderColor: colors.primary,
@@ -76,7 +76,7 @@ export default function TaskItem({ task, onToggle, onDelete, onRename }) {
               style={({ pressed }) => ({
                 opacity: pressed ? 0.5 : 1,
                 minHeight: 44,
-                paddingHorizontal: 16,
+                paddingHorizontal: spacing.s16,
                 alignItems: "center",
                 justifyContent: "center",
                 backgroundColor: colors.border,
@@ -103,7 +103,7 @@ export default function TaskItem({ task, onToggle, onDelete, onRename }) {
               style={({ pressed }) => ({
                 opacity: !draftTitle.trim() ? 0.35 : pressed ? 0.5 : 1,
                 minHeight: 44,
-                paddingHorizontal: 16,
+                paddingHorizontal: spacing.s16,
                 alignItems: "center",
                 justifyContent: "center",
                 backgroundColor: colors.primary,
@@ -147,7 +147,7 @@ export default function TaskItem({ task, onToggle, onDelete, onRename }) {
               textDecorationLine: task.completed ? "line-through" : "none",
               color: task.completed ? colors.textMuted : colors.text,
               flex: 1,
-              marginHorizontal: 8,
+              marginHorizontal: spacing.s8,
             }}
           >
             {task.title}
@@ -162,7 +162,7 @@ export default function TaskItem({ task, onToggle, onDelete, onRename }) {
               styles.iconButton,
               {
                 backgroundColor: pressed ? colors.primaryLightPressed : colors.primaryLight,
-                marginRight: 8,
+                marginRight: spacing.s8,
               },
             ]}
           >
@@ -195,8 +195,8 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     borderWidth: 1,
     borderColor: colors.border,
-    padding: 16,
-    marginBottom: 12,
+    padding: spacing.s16,
+    marginBottom: spacing.s12,
 
     width: "100%",
   },
@@ -230,8 +230,8 @@ const styles = StyleSheet.create({
   editActions: {
     flexDirection: "row",
     justifyContent: "flex-end",
-    gap: 8,
-    marginTop: 12,
+    gap: spacing.s8,
+    marginTop: spacing.s12,
   },
   taskRow: {
     flexDirection: "row",
