@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import {
   FlatList,
@@ -11,18 +11,16 @@ import {
 } from "react-native";
 import TaskItem from "./components/TaskItem.js";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import TaskProgress from "./components/TaskProgress.js";
 import TaskFilters from "./components/TaskFilters.js";
 import AddTaskForm from "./components/AddTaskForm.js";
+import useTasks from "./hooks/useTasks.js";
 
 const FILTERS_STATUS = {
   all: "all",
   completed: "completed",
   pending: "pending",
 };
-
-const TASKS_STORAGE_KEY = "task-tracker:tasks";
 
 function getEmptyMessage(filter, totalCount) {
   if (totalCount === 0) {
@@ -37,130 +35,32 @@ function getEmptyMessage(filter, totalCount) {
   return "No tasks found.";
 }
 
-function isValidTasks(value) {
-  if (!Array.isArray(value)) return false;
-
-  const ids = new Set();
-
-  return value.every((task) => {
-    if (typeof task !== "object" || task === null) return false;
-    if (!Number.isInteger(task.id) || task.id <= 0) return false;
-    if (typeof task.title !== "string" || !task.title.trim()) return false;
-    if (typeof task.completed !== "boolean") return false;
-
-    if (ids.has(task.id)) return false;
-
-    ids.add(task.id);
-    return true;
-  });
-}
-
 export default function App() {
-  const [tasks, setTasks] = useState([]);
+  const {
+    tasks,
+    isLoaded,
+    loadError,
+    saveStatus,
+    retryLoad,
+    retrySave,
+    handleToggle,
+    handleDeleteTask,
+    handleRenameTask,
+    addTask,
+  } = useTasks();
   const [newTaskTitle, setNewTaskTitle] = useState("");
   const [filter, setFilter] = useState(FILTERS_STATUS.all);
-
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [loadError, setLoadError] = useState(null);
-  const [loadAttempt, setLoadAttempt] = useState(0);
-  const [saveStatus, setSaveStatus] = useState("idle");
-  const [saveAttempt, setSaveAttempt] = useState(0);
-
-  useEffect(() => {
-    async function loadTasks() {
-      setLoadError(null);
-      setIsLoaded(false);
-
-      try {
-        const savedTasks = await AsyncStorage.getItem(TASKS_STORAGE_KEY);
-
-        if (savedTasks !== null) {
-          const loadedTasks = JSON.parse(savedTasks); // Convert JSON string back to an array
-
-          if (!isValidTasks(loadedTasks)) {
-            throw new Error("Invalid saved tasks format.");
-          }
-
-          setTasks(loadedTasks);
-          console.log("Tasks loaded successfully.");
-        }
-
-        setIsLoaded(true);
-      } catch (error) {
-        console.error("Error loading tasks:", error);
-        setLoadError("Unable to load your tasks. Please try again.");
-      }
-    }
-
-    loadTasks();
-  }, [loadAttempt]);
-
-  useEffect(() => {
-    if (!isLoaded) return; // Don't attempt to save tasks if they haven't been loaded
-
-    let isActive = true;
-
-    async function saveTasks() {
-      setSaveStatus("saving");
-
-      try {
-        const serializedTasks = JSON.stringify(tasks);
-        await AsyncStorage.setItem(TASKS_STORAGE_KEY, serializedTasks);
-
-        if (isActive) {
-          setSaveStatus("saved");
-        }
-      } catch (error) {
-        console.error("Error saving tasks:", error);
-
-        if (isActive) {
-          setSaveStatus("error");
-        }
-      }
-    }
-
-    saveTasks();
-
-    return () => {
-      isActive = false;
-    };
-  }, [tasks, isLoaded, saveAttempt]);
-
-  function handleToggle(taskId) {
-    setTasks((prevTasks) =>
-      prevTasks.map((task) =>
-        task.id === taskId ? { ...task, completed: !task.completed } : task,
-      ),
-    );
-  }
 
   const pendingTasksCount = tasks.filter((task) => !task.completed).length;
   const completedTasksCount = tasks.length - pendingTasksCount;
 
+  // Add task
   function handleAddTask() {
     const title = newTaskTitle.trim();
+    if (!title) return;
 
-    if (title) {
-      setTasks((prevTasks) => {
-        const highestId =
-          prevTasks.length > 0
-            ? Math.max(...prevTasks.map((task) => task.id))
-            : 0;
-
-        const newTask = {
-          id: highestId + 1,
-          title,
-          completed: false,
-        };
-        return [...prevTasks, newTask];
-      });
-
-      setNewTaskTitle("");
-    }
-  }
-
-  function handleDeleteTask(taskId) {
-    setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
+    addTask(title);
+    setNewTaskTitle("");
   }
 
   const filteredTasks = tasks.filter((task) => {
@@ -168,15 +68,6 @@ export default function App() {
     if (filter === FILTERS_STATUS.pending) return !task.completed;
     return true; // for "all" filter
   });
-
-  function handleRenameTask(taskId, newTitle) {
-    const title = newTitle.trim();
-    if (!title) return;
-
-    setTasks((prevTasks) =>
-      prevTasks.map((task) => (task.id === taskId ? { ...task, title } : task)),
-    );
-  }
 
   return (
     <SafeAreaProvider>
@@ -205,7 +96,7 @@ export default function App() {
                 {/* Retry button */}
                 {saveStatus === "error" && (
                   <Pressable
-                    onPress={() => setSaveAttempt((previous) => previous + 1)}
+                    onPress={retrySave}
                     accessibilityRole="button"
                     accessibilityLabel="Retry saving tasks"
                     style={({ pressed }) => ({
@@ -237,7 +128,7 @@ export default function App() {
               <Text style={styles.emptyText}>{loadError}</Text>
               <Pressable
                 accessibilityRole="button"
-                onPress={() => setLoadAttempt((previous) => previous + 1)}
+                onPress={retryLoad}
                 style={styles.addButton}
               >
                 <Text style={styles.addButtonText}>Try again</Text>
