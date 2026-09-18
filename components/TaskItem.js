@@ -10,7 +10,13 @@ import {
 import { Ionicons } from "@react-native-vector-icons/ionicons";
 import { colors, spacing } from "../theme.js";
 
-export default function TaskItem({ task, onToggle, onDelete, onRename }) {
+export default function TaskItem({
+  task,
+  onToggle,
+  onDelete,
+  onRename,
+  onOpen,
+}) {
   const [isEditting, setIsEditting] = useState(false);
   const [draftTitle, setDraftTitle] = useState("");
 
@@ -47,7 +53,13 @@ export default function TaskItem({ task, onToggle, onDelete, onRename }) {
     <View style={styles.taskItem}>
       {isEditting ? (
         <View style={styles.editForm}>
-          <Text style={{ fontSize: 14, fontWeight: "600", marginBottom: spacing.s8 }}>
+          <Text
+            style={{
+              fontSize: 14,
+              fontWeight: "600",
+              marginBottom: spacing.s8,
+            }}
+          >
             Edit task
           </Text>
           <TextInput
@@ -141,17 +153,28 @@ export default function TaskItem({ task, onToggle, onDelete, onRename }) {
             </View>
           </Pressable>
 
-          <Text
+          {/* Task title */}
+          <Pressable
+            onPress={() => onOpen(task.id)}
+            accessibilityRole="button"
+            accessibilityLabel={`View details for ${task.title}`}
             style={{
-              fontSize: 16,
-              textDecorationLine: task.completed ? "line-through" : "none",
-              color: task.completed ? colors.textMuted : colors.text,
               flex: 1,
               marginHorizontal: spacing.s8,
+              minHeight: 44,
+              justifyContent: "center",
             }}
           >
-            {task.title}
-          </Text>
+            <Text
+              style={{
+                fontSize: 16,
+                textDecorationLine: task.completed ? "line-through" : "none",
+                color: task.completed ? colors.textMuted : colors.text,
+              }}
+            >
+              {task.title}
+            </Text>
+          </Pressable>
 
           {/* Edit button */}
           <Pressable
@@ -161,7 +184,9 @@ export default function TaskItem({ task, onToggle, onDelete, onRename }) {
             style={({ pressed }) => [
               styles.iconButton,
               {
-                backgroundColor: pressed ? colors.primaryLightPressed : colors.primaryLight,
+                backgroundColor: pressed
+                  ? colors.primaryLightPressed
+                  : colors.primaryLight,
                 marginRight: spacing.s8,
               },
             ]}
@@ -177,7 +202,9 @@ export default function TaskItem({ task, onToggle, onDelete, onRename }) {
             style={({ pressed }) => [
               styles.iconButton,
               {
-                backgroundColor: pressed ? colors.dangerLightPressed : colors.dangerLight,
+                backgroundColor: pressed
+                  ? colors.dangerLightPressed
+                  : colors.dangerLight,
               },
             ]}
           >

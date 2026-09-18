@@ -78,16 +78,6 @@ export default function TaskListScreen({ navigation }) {
       <SafeAreaView style={styles.container}>
         <View style={styles.header}>
           <Text style={styles.topic}>My Tasks</Text>
-          <Pressable
-            onPress={() => navigation.navigate("TaskDetails")}
-            accessibilityRole="button"
-            style={{
-              minHeight: 44,
-              justifyContent: "center",
-            }}
-          >
-            <Text style={{ color: colors.primary }}>Open task details</Text>
-          </Pressable>
 
           {isLoaded && (
             // Progress bar
@@ -179,6 +169,9 @@ export default function TaskListScreen({ navigation }) {
                   onToggle={handleToggle}
                   onDelete={handleDeleteTask}
                   onRename={handleRenameTask}
+                  onOpen={(taskId) =>
+                    navigation.navigate("TaskDetails", { taskId })
+                  }
                 />
               )}
               ListEmptyComponent={
