@@ -15,6 +15,7 @@ import TaskProgress from "./components/TaskProgress.js";
 import TaskFilters from "./components/TaskFilters.js";
 import AddTaskForm from "./components/AddTaskForm.js";
 import useTasks from "./hooks/useTasks.js";
+import { colors } from "./theme.js";
 
 const FILTERS_STATUS = {
   all: "all",
@@ -82,7 +83,7 @@ export default function App() {
                 <Text
                   style={[
                     styles.count,
-                    saveStatus === "error" && { color: "#B91C1C" },
+                    saveStatus === "error" && { color: colors.danger },
                   ]}
                 >
                   {saveStatus === "saving"
@@ -105,10 +106,10 @@ export default function App() {
                       justifyContent: "center",
                       paddingHorizontal: 12,
                       borderRadius: 8,
-                      backgroundColor: pressed ? "#E0E7FF" : "#EEF2FF",
+                      backgroundColor: pressed ? colors.primaryLightPressed : colors.primaryLight,
                     })}
                   >
-                    <Text style={{ color: "#4F46E5", fontWeight: "600" }}>
+                    <Text style={{ color: colors.primary, fontWeight: "600" }}>
                       Retry save
                     </Text>
                   </Pressable>
@@ -186,7 +187,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F8FAFC",
+    backgroundColor: colors.background,
     alignItems: "center",
     paddingHorizontal: 24,
   },
@@ -199,11 +200,11 @@ const styles = StyleSheet.create({
     fontSize: 32,
     fontWeight: "bold",
     marginBottom: 4,
-    color: "#0F172A",
+    color: colors.text,
   },
   count: {
     fontSize: 14,
-    color: "#64748B",
+    color: colors.textMuted,
   },
   list: {
     flex: 1,
@@ -215,7 +216,7 @@ const styles = StyleSheet.create({
   },
   emptyText: {
     fontSize: 16,
-    color: "#64748B",
+    color: colors.textMuted,
     textAlign: "center",
   },
   loadingContainer: {
@@ -231,7 +232,7 @@ const styles = StyleSheet.create({
   },
   addButton: {
     width: "100%",
-    backgroundColor: "#4F46E5",
+    backgroundColor: colors.primary,
     minHeight: 52,
     borderRadius: 12,
     alignItems: "center",
@@ -241,7 +242,7 @@ const styles = StyleSheet.create({
     padding: 14,
   },
   addButtonText: {
-    color: "#FFFFFF",
+    color: colors.surface,
     fontSize: 16,
     fontWeight: "600",
   },

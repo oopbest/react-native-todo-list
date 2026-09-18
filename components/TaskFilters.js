@@ -1,4 +1,5 @@
 import { View, Text, StyleSheet, Pressable } from "react-native";
+import { colors } from "../theme.js";
 
 export default function TaskFilters({ selectedFilter, onFilterChange }) {
   return (
@@ -76,7 +77,7 @@ const styles = StyleSheet.create({
   filters: {
     flexDirection: "row",
     width: "100%",
-    backgroundColor: "#E2E8F0",
+    backgroundColor: colors.border,
     borderRadius: 12,
     padding: 4,
     marginBottom: 20,
@@ -90,15 +91,15 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   filterButtonActive: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: colors.surface,
   },
   filterText: {
-    color: "#475569",
+    color: colors.textSecondary,
     fontSize: 14,
     fontWeight: "500",
   },
   filterTextActive: {
-    color: "#4F46E5",
+    color: colors.primary,
     fontWeight: "600",
   },
 });

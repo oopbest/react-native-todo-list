@@ -8,64 +8,7 @@ import {
   TextInput,
 } from "react-native";
 import { Ionicons } from "@react-native-vector-icons/ionicons";
-
-const styles = StyleSheet.create({
-  taskItem: {
-    backgroundColor: "#FFFFFF",
-    borderRadius: 16,
-    borderWidth: 1,
-    borderColor: "#E2E8F0",
-    padding: 16,
-    marginBottom: 12,
-
-    width: "100%",
-  },
-  toggleButton: {
-    width: 44,
-    height: 44,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  checkbox: {
-    width: 24,
-    height: 24,
-    borderWidth: 2,
-    borderColor: "#94A3B8",
-    borderRadius: 12,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  checkboxChecked: {
-    backgroundColor: "#4F46E5",
-    borderColor: "#4F46E5",
-  },
-  checkmark: {
-    color: "#FFFFFF",
-    fontSize: 16,
-    fontWeight: "700",
-  },
-  editForm: {
-    width: "100%",
-  },
-  editActions: {
-    flexDirection: "row",
-    justifyContent: "flex-end",
-    gap: 8,
-    marginTop: 12,
-  },
-  taskRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-  iconButton: {
-    width: 44,
-    height: 44,
-    borderRadius: 12,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
+import { colors } from "../theme.js";
 
 export default function TaskItem({ task, onToggle, onDelete, onRename }) {
   const [isEditting, setIsEditting] = useState(false);
@@ -117,7 +60,7 @@ export default function TaskItem({ task, onToggle, onDelete, onRename }) {
               padding: 12,
               borderRadius: 10,
               borderWidth: 1,
-              borderColor: "#4F46E5",
+              borderColor: colors.primary,
             }}
           />
           <View style={styles.editActions}>
@@ -136,13 +79,13 @@ export default function TaskItem({ task, onToggle, onDelete, onRename }) {
                 paddingHorizontal: 16,
                 alignItems: "center",
                 justifyContent: "center",
-                backgroundColor: "#E2E8F0",
+                backgroundColor: colors.border,
                 borderRadius: 10,
               })}
             >
               <Text
                 style={{
-                  color: "#0F172A",
+                  color: colors.text,
                   fontSize: 13,
                   fontWeight: "600",
                 }}
@@ -163,13 +106,13 @@ export default function TaskItem({ task, onToggle, onDelete, onRename }) {
                 paddingHorizontal: 16,
                 alignItems: "center",
                 justifyContent: "center",
-                backgroundColor: "#4F46E5",
+                backgroundColor: colors.primary,
                 borderRadius: 10,
               })}
             >
               <Text
                 style={{
-                  color: "#ffffff",
+                  color: colors.surface,
                   fontSize: 13,
                   fontWeight: "600",
                 }}
@@ -202,7 +145,7 @@ export default function TaskItem({ task, onToggle, onDelete, onRename }) {
             style={{
               fontSize: 16,
               textDecorationLine: task.completed ? "line-through" : "none",
-              color: task.completed ? "#64748B" : "#0F172A",
+              color: task.completed ? colors.textMuted : colors.text,
               flex: 1,
               marginHorizontal: 8,
             }}
@@ -218,12 +161,12 @@ export default function TaskItem({ task, onToggle, onDelete, onRename }) {
             style={({ pressed }) => [
               styles.iconButton,
               {
-                backgroundColor: pressed ? "#E0E7FF" : "#EEF2FF",
+                backgroundColor: pressed ? colors.primaryLightPressed : colors.primaryLight,
                 marginRight: 8,
               },
             ]}
           >
-            <Ionicons name="pencil-outline" size={20} color="#4F46E5" />
+            <Ionicons name="pencil-outline" size={20} color={colors.primary} />
           </Pressable>
 
           {/* Delete button */}
@@ -234,14 +177,72 @@ export default function TaskItem({ task, onToggle, onDelete, onRename }) {
             style={({ pressed }) => [
               styles.iconButton,
               {
-                backgroundColor: pressed ? "#FEE2E2" : "#FEF2F2",
+                backgroundColor: pressed ? colors.dangerLightPressed : colors.dangerLight,
               },
             ]}
           >
-            <Ionicons name="trash-outline" size={20} color="#B91C1C" />
+            <Ionicons name="trash-outline" size={20} color={colors.danger} />
           </Pressable>
         </View>
       )}
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  taskItem: {
+    backgroundColor: colors.surface,
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: colors.border,
+    padding: 16,
+    marginBottom: 12,
+
+    width: "100%",
+  },
+  toggleButton: {
+    width: 44,
+    height: 44,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  checkbox: {
+    width: 24,
+    height: 24,
+    borderWidth: 2,
+    borderColor: colors.disabled,
+    borderRadius: 12,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  checkboxChecked: {
+    backgroundColor: colors.primary,
+    borderColor: colors.primary,
+  },
+  checkmark: {
+    color: colors.surface,
+    fontSize: 16,
+    fontWeight: "700",
+  },
+  editForm: {
+    width: "100%",
+  },
+  editActions: {
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    gap: 8,
+    marginTop: 12,
+  },
+  taskRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  iconButton: {
+    width: 44,
+    height: 44,
+    borderRadius: 12,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});

@@ -1,4 +1,5 @@
 import { View, Text, StyleSheet } from "react-native";
+import { colors } from "../theme.js";
 
 export default function TaskProgress({ totalCount, completedCount }) {
   const progressPercent =
@@ -31,18 +32,18 @@ export default function TaskProgress({ totalCount, completedCount }) {
 const styles = StyleSheet.create({
   count: {
     fontSize: 14,
-    color: "#64748B",
+    color: colors.textMuted,
   },
   progressTrack: {
     width: "100%",
     height: 8,
-    backgroundColor: "#E2E8F0",
+    backgroundColor: colors.border,
     borderRadius: 4,
     overflow: "hidden",
   },
   progressFill: {
     height: "100%",
-    backgroundColor: "#4F46E5",
+    backgroundColor: colors.primary,
     borderRadius: 4,
   },
 });

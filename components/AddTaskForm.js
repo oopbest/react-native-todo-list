@@ -1,4 +1,5 @@
 import { TextInput, Pressable, Text, StyleSheet } from "react-native";
+import { colors } from "../theme.js";
 
 export default function AddTaskForm({
   taskTitle,
@@ -10,7 +11,7 @@ export default function AddTaskForm({
       <TextInput
         style={styles.input}
         placeholder="Enter a new task"
-        placeholderTextColor="#64748B"
+        placeholderTextColor={colors.textMuted}
         value={taskTitle}
         onChangeText={onTaskTitleChange}
       />
@@ -32,24 +33,24 @@ export default function AddTaskForm({
 
 const styles = StyleSheet.create({
   input: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: colors.surface,
     borderWidth: 1,
-    borderColor: "#E2E8F0",
+    borderColor: colors.border,
     borderRadius: 12,
     width: "100%",
     padding: 16,
     fontSize: 16,
-    color: "#0F172A",
+    color: colors.text,
   },
   addButtonDisabled: {
-    backgroundColor: "#94A3B8",
+    backgroundColor: colors.disabled,
   },
   addButtonPressed: {
-    backgroundColor: "#4338CA",
+    backgroundColor: colors.primaryPressed,
   },
   addButton: {
     width: "100%",
-    backgroundColor: "#4F46E5",
+    backgroundColor: colors.primary,
     minHeight: 52,
     borderRadius: 12,
     alignItems: "center",
@@ -59,7 +60,7 @@ const styles = StyleSheet.create({
     padding: 14,
   },
   addButtonText: {
-    color: "#FFFFFF",
+    color: colors.surface,
     fontSize: 16,
     fontWeight: "600",
   },
