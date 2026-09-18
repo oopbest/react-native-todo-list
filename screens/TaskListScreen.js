@@ -37,7 +37,7 @@ function getEmptyMessage(filter, totalCount) {
   return "No tasks found.";
 }
 
-export default function TaskListScreen() {
+export default function TaskListScreen({ navigation }) {
   const {
     tasks,
     isLoaded,
@@ -78,6 +78,16 @@ export default function TaskListScreen() {
       <SafeAreaView style={styles.container}>
         <View style={styles.header}>
           <Text style={styles.topic}>My Tasks</Text>
+          <Pressable
+            onPress={() => navigation.navigate("TaskDetails")}
+            accessibilityRole="button"
+            style={{
+              minHeight: 44,
+              justifyContent: "center",
+            }}
+          >
+            <Text style={{ color: colors.primary }}>Open task details</Text>
+          </Pressable>
 
           {isLoaded && (
             // Progress bar
