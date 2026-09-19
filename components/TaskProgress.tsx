@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet } from "react-native";
-import { colors } from "../theme.js";
+import { colors } from "../theme";
 
 interface TaskProgressProps {
   totalCount: number;

@@ -7,8 +7,8 @@ import {
   Alert,
   TextInput,
 } from "react-native";
-import { colors, spacing } from "../theme.js";
-import { useTasksContext } from "../context/TasksContext.js";
+import { colors, spacing } from "../theme";
+import { useTasksContext } from "../context/TasksContext";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import type { RootStackParamList } from "../types";
 

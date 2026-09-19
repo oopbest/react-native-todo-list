@@ -1,5 +1,5 @@
 import { TextInput, Pressable, Text, StyleSheet } from "react-native";
-import { colors, spacing } from "../theme.js";
+import { colors, spacing } from "../theme";
 interface AddTaskFormProps {
   taskTitle: string;
   onTaskTitleChange: (text: string) => void;
