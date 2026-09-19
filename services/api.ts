@@ -4,9 +4,9 @@ import type { AuthResponse, PaginatedTasksResponse, Task } from "../types";
 // ตั้งค่า Base URL ให้เหมาะกับ Platform ที่รันอยู่
 // หากรันบนมือถือจริงผ่าน Expo Go ให้เปลี่ยนเป็น IP เช่น "http://192.168.1.33:8080"
 export const API_BASE_URL = Platform.select({
-  android: "http://10.0.2.2:8080",
-  ios: "http://localhost:8080",
-  default: "http://localhost:8080",
+  android: "http://10.0.2.2:8080", // สำหรับ Android Emulator
+  ios: "http://192.168.1.33:8080", // สำหรับ iPhone (ชี้มาที่คอมพิวเตอร์)
+  default: "http://192.168.1.33:8080",
 });
 
 async function handleResponse<T>(response: Response): Promise<T> {
