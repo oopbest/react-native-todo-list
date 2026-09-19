@@ -1,7 +1,15 @@
 import { View, Text, StyleSheet } from "react-native";
 import { colors } from "../theme.js";
 
-export default function TaskProgress({ totalCount, completedCount }) {
+interface TaskProgressProps {
+  totalCount: number;
+  completedCount: number;
+}
+
+export default function TaskProgress({
+  totalCount,
+  completedCount,
+}: TaskProgressProps) {
   const progressPercent =
     totalCount === 0 ? 0 : Math.round((completedCount / totalCount) * 100);
   return (

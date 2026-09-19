@@ -9,14 +9,20 @@ import {
 } from "react-native";
 import { colors, spacing } from "../theme.js";
 import { useTasksContext } from "../context/TasksContext.js";
+import type { NativeStackScreenProps } from "@react-navigation/native-stack";
+import type { RootStackParamList } from "../types";
 
-export default function TaskDetailsScreen({ route, navigation }) {
+type Props = NativeStackScreenProps<RootStackParamList, "TaskDetails">;
+
+export default function TaskDetailsScreen({ route, navigation }: Props) {
   const { tasks, handleToggle, handleDeleteTask, handleRenameTask } =
     useTasksContext();
   const taskId = route.params?.taskId;
   const task = tasks.find((item) => item.id === taskId);
 
   function confirmDelete() {
+    if (!task) return;
+
     Alert.alert(
       "Delete task",
       `Are you sure you want to delete this ${task.title}?`,
@@ -39,11 +45,13 @@ export default function TaskDetailsScreen({ route, navigation }) {
   const [draftTitle, setDraftTitle] = useState("");
 
   function startEditing() {
+    if (!task) return;
+
     setDraftTitle(task.title);
     setIsEditing(true);
   }
   function saveTitle() {
-    if (!draftTitle.trim()) return;
+    if (!task || !draftTitle.trim()) return;
 
     handleRenameTask(task.id, draftTitle);
     setIsEditing(false);

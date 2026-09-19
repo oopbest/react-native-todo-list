@@ -2,14 +2,15 @@ import { useState, useEffect } from "react";
 import {
   loadTasksFromStorage,
   saveTasksToStorage,
-} from "../storage/taskStorage.js";
+} from "../storage/taskStorage";
+import type { Task, SaveStatus } from "../types";
 
 export default function useTasks() {
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState<Task[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [loadError, setLoadError] = useState(null);
+  const [loadError, setLoadError] = useState<string | null>(null);
   const [loadAttempt, setLoadAttempt] = useState(0);
-  const [saveStatus, setSaveStatus] = useState("idle");
+  const [saveStatus, setSaveStatus] = useState<SaveStatus>("idle");
   const [saveAttempt, setSaveAttempt] = useState(0);
 
   // Load tasks
@@ -70,7 +71,7 @@ export default function useTasks() {
     setSaveAttempt((previous) => previous + 1);
   }
 
-  function handleToggle(taskId) {
+  function handleToggle(taskId: number) {
     setTasks((prevTasks) =>
       prevTasks.map((task) =>
         task.id === taskId ? { ...task, completed: !task.completed } : task,
@@ -78,11 +79,11 @@ export default function useTasks() {
     );
   }
 
-  function handleDeleteTask(taskId) {
+  function handleDeleteTask(taskId: number) {
     setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
   }
 
-  function handleRenameTask(taskId, newTitle) {
+  function handleRenameTask(taskId: number, newTitle: string) {
     const title = newTitle.trim();
     if (!title) return;
 
@@ -91,7 +92,7 @@ export default function useTasks() {
     );
   }
 
-  function addTask(newTaskTitle) {
+  function addTask(newTaskTitle: string) {
     const title = newTaskTitle.trim();
     if (!title) return;
 

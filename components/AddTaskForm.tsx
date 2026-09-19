@@ -1,11 +1,16 @@
 import { TextInput, Pressable, Text, StyleSheet } from "react-native";
 import { colors, spacing } from "../theme.js";
+interface AddTaskFormProps {
+  taskTitle: string;
+  onTaskTitleChange: (text: string) => void;
+  onSubmit: () => void;
+}
 
 export default function AddTaskForm({
   taskTitle,
   onTaskTitleChange,
   onSubmit,
-}) {
+}: AddTaskFormProps) {
   return (
     <>
       <TextInput

@@ -11,12 +11,17 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import TaskItem from "../components/TaskItem.js";
-import TaskProgress from "../components/TaskProgress.js";
-import TaskFilters from "../components/TaskFilters.js";
-import AddTaskForm from "../components/AddTaskForm.js";
-import { useTasksContext } from "../context/TasksContext.js";
-import { colors, spacing } from "../theme.js";
+import TaskItem from "../components/TaskItem";
+import TaskProgress from "../components/TaskProgress";
+import TaskFilters from "../components/TaskFilters";
+import AddTaskForm from "../components/AddTaskForm";
+import { useTasksContext } from "../context/TasksContext";
+import { colors, spacing } from "../theme";
+
+import type { NativeStackScreenProps } from "@react-navigation/native-stack";
+import type { RootStackParamList, FilterStatus } from "../types";
+
+type Props = NativeStackScreenProps<RootStackParamList, "TaskList">;
 
 const FILTERS_STATUS = {
   all: "all",
@@ -24,7 +29,7 @@ const FILTERS_STATUS = {
   pending: "pending",
 };
 
-function getEmptyMessage(filter, totalCount) {
+function getEmptyMessage(filter: FilterStatus, totalCount: number) {
   if (totalCount === 0) {
     return "Start by adding your first task.";
   }
@@ -37,7 +42,7 @@ function getEmptyMessage(filter, totalCount) {
   return "No tasks found.";
 }
 
-export default function TaskListScreen({ navigation }) {
+export default function TaskListScreen({ navigation }: Props) {
   const {
     tasks,
     isLoaded,
@@ -51,8 +56,8 @@ export default function TaskListScreen({ navigation }) {
     addTask,
   } = useTasksContext();
 
-  const [newTaskTitle, setNewTaskTitle] = useState("");
-  const [filter, setFilter] = useState(FILTERS_STATUS.all);
+  const [newTaskTitle, setNewTaskTitle] = useState<string>("");
+  const [filter, setFilter] = useState<FilterStatus>("all");
 
   const pendingTasksCount = tasks.filter((task) => !task.completed).length;
   const completedTasksCount = tasks.length - pendingTasksCount;

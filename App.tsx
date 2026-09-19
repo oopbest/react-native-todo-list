@@ -2,11 +2,13 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
-import { TasksProvider } from "./context/TasksContext.js";
-import TaskListScreen from "./screens/TaskListScreen.js";
-import TaskDetailsScreen from "./screens/TaskDetailsScreen.js";
+import { TasksProvider } from "./context/TasksContext";
+import TaskListScreen from "./screens/TaskListScreen";
+import TaskDetailsScreen from "./screens/TaskDetailsScreen";
 
-const Stack = createNativeStackNavigator();
+import type { RootStackParamList } from "./types";
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function App() {
   return (

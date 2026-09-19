@@ -13,7 +13,7 @@ export const colors = {
   dangerLightPressed: "#FEE2E2",
   primaryLight: "#EEF2FF",
   primaryLightPressed: "#E0E7FF",
-};
+} as const;
 
 export const spacing = {
   s4: 4,
@@ -26,4 +26,4 @@ export const spacing = {
   s24: 24,
   s25: 25,
   s40: 40,
-};
+} as const;

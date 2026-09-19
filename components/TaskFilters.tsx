@@ -1,7 +1,16 @@
 import { View, Text, StyleSheet, Pressable } from "react-native";
-import { colors, spacing } from "../theme.js";
+import { colors, spacing } from "../theme";
+import type { FilterStatus } from "../types";
 
-export default function TaskFilters({ selectedFilter, onFilterChange }) {
+interface TaskFiltersProps {
+  selectedFilter: FilterStatus;
+  onFilterChange: (filter: FilterStatus) => void;
+}
+
+export default function TaskFilters({
+  selectedFilter,
+  onFilterChange,
+}: TaskFiltersProps) {
   return (
     <View style={styles.filters}>
       {/* All */}

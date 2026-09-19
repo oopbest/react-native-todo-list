@@ -8,7 +8,17 @@ import {
   TextInput,
 } from "react-native";
 import { Ionicons } from "@react-native-vector-icons/ionicons";
-import { colors, spacing } from "../theme.js";
+import { colors, spacing } from "../theme";
+
+import type { Task } from "../types";
+
+interface TaskItemProps {
+  task: Task;
+  onToggle: (id: number) => void;
+  onDelete: (id: number) => void;
+  onRename: (id: number, title: string) => void;
+  onOpen?: (id: number) => void;
+}
 
 export default function TaskItem({
   task,
@@ -16,7 +26,7 @@ export default function TaskItem({
   onDelete,
   onRename,
   onOpen,
-}) {
+}: TaskItemProps) {
   const [isEditting, setIsEditting] = useState(false);
   const [draftTitle, setDraftTitle] = useState("");
 
@@ -155,7 +165,7 @@ export default function TaskItem({
 
           {/* Task title */}
           <Pressable
-            onPress={() => onOpen(task.id)}
+            onPress={() => onOpen?.(task.id)}
             accessibilityRole="button"
             accessibilityLabel={`View details for ${task.title}`}
             style={{
