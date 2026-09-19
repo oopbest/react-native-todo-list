@@ -29,7 +29,7 @@ export async function saveTasksToStorage(tasks: Task[]): Promise<void> {
 }
 
 // Helper functions
-function isValidTasks(value: unknown): value is Task[] {
+export function isValidTasks(value: unknown): value is Task[] {
   if (!Array.isArray(value)) return false;
 
   const ids = new Set();
