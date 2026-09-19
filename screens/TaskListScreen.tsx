@@ -21,6 +21,9 @@ import { colors, spacing } from "../theme";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import type { RootStackParamList, FilterStatus } from "../types";
 
+import { useAuth } from "../context/AuthContext";
+import { Ionicons } from "@react-native-vector-icons/ionicons";
+
 type Props = NativeStackScreenProps<RootStackParamList, "TaskList">;
 
 const FILTERS_STATUS = {
@@ -43,6 +46,7 @@ function getEmptyMessage(filter: FilterStatus, totalCount: number) {
 }
 
 export default function TaskListScreen({ navigation }: Props) {
+  const { user, logout } = useAuth();
   const {
     tasks,
     isLoaded,
@@ -82,7 +86,40 @@ export default function TaskListScreen({ navigation }: Props) {
     <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
       <SafeAreaView style={styles.container}>
         <View style={styles.header}>
-          <Text style={styles.topic}>My Tasks</Text>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <View>
+              <Text style={styles.topic}>My Tasks</Text>
+              {user?.email && (
+                <Text style={{ fontSize: 13, color: colors.textMuted }}>
+                  {user.email}
+                </Text>
+              )}
+            </View>
+            <Pressable
+              onPress={logout}
+              accessibilityRole="button"
+              accessibilityLabel="Sign out"
+              style={({ pressed }) => ({
+                padding: spacing.s8,
+                borderRadius: 10,
+                backgroundColor: pressed
+                  ? colors.dangerLightPressed
+                  : colors.dangerLight,
+              })}
+            >
+              <Ionicons
+                name="log-out-outline"
+                size={22}
+                color={colors.danger}
+              />
+            </Pressable>
+          </View>
 
           {isLoaded && (
             // Progress bar

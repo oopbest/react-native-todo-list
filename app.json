@@ -22,7 +22,8 @@
     },
     "plugins": [
       "@react-native-vector-icons/ionicons",
-      "expo-font"
+      "expo-font",
+      "expo-secure-store"
     ]
   }
 }
